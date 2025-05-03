@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabriano - Tienda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Header Strip */
+        .header-strip {
+            background-color: #333;
+            padding: 15px 50px;
+            position: relative;
+            color: #fff;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 250px;
+        }
+
+        .search-bar input {
+            padding: 10px 10px 10px 35px;
+            border: none;
+            border-bottom: 1px solid #fff;
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            background: transparent;
+            color: #fff;
+        }
+
+        .search-bar input::placeholder {
+            color: #ccc;
+        }
+
+        .search-bar::before {
+            content: "🔍";
+            position: absolute;
+            left: 10px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .logo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            max-height: 100px;
+            max-width: 350px;
+            object-fit: contain;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            width: 250px;
+            justify-content: flex-end;
+        }
+
+        .user-actions a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-actions a:hover {
+            color: #f5a623;
+        }
+
+        .user-actions .icon {
+            font-size: 24px;
+        }
+
+        .header-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            width: 250px;
+        }
+
+        .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1);
+        }
+
+        .social-icons img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex: 1;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #f5a623;
+        }
+
+        .nav a.active {
+            color: #f5a623;
+            font-weight: bold;
+        }
+
+        .phone-number {
+            font-size: 14px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: 250px;
+            justify-content: flex-end;
+        }
+
+        .phone-number::before {
+            content: "📞";
+            font-size: 16px;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            padding: 40px 50px;
+            background-color: #fff;
+            gap: 30px;
+        }
+
+        /* Categories Section */
+        .categories-section {
+            width: 250px;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .categories-section h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .categories-section ul {
+            list-style: none;
+        }
+
+        .categories-section ul li {
+            margin-bottom: 15px;
+        }
+
+        .categories-section ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .categories-section ul li a:hover {
+            color: #f5a623;
+        }
+
+        /* Products Section */
+        .products-section {
+            flex: 1;
+        }
+
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .products-header p {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .products-header select {
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+        }
+
+        .product-item {
+            position: relative;
+            text-align: left;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            min-height: 400px;
+        }
+
+        .product-item a img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item a img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Hide additional products initially */
+        .product-item.hidden {
+            display: none;
+        }
+
+        .options-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            background-color: #e5e5e5;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .options-bar:hover {
+            background-color: #d5d5d5;
+        }
+
+        .options-bar a {
+            color: #333;
+            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .options-bar a:hover {
+            color: #f5a623;
+        }
+
+        .options-bar a:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .options-bar .icon {
+            font-size: 16px;
+        }
+
+        .options-bar a .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            white-space: nowrap;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .options-bar a .tooltip::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 5px 5px 5px;
+            border-style: solid;
+            border-color: transparent transparent #333 transparent;
+        }
+
+        .product-details {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 150px;
+        }
+
+        .product-details h3 {
+            font-size: 1rem;
+            margin-bottom: 0;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;    
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* For multiline ellipsis */
+            -webkit-box-orient: vertical;
+            /* Note: -webkit-line-clamp is not supported in all browsers (e.g., Firefox) */
+        }
+
+        .product-details h3 a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .product-details h3 a:hover {
+            color: #f5a623;
+        }
+
+        .product-details .price {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .product-details .price-desde {
+            color: #f5a623; /* Yellow color as per the image */
+            font-size: 1.1rem;
+        }
+
+        .product-details .price-value {
+            color: #000; /* Black color for the price number */
+        }
+
+        .products-grid .product-item:first-child .price {
+            font-family: "Century Gothic", sans-serif;
+        }
+
+        .product-details button {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-details button:hover {
+            background-color: #555;
+        }
+
+        /* Ver Más Button */
+        .ver-mas-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .ver-mas-button {
+            padding: 12px 30px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+
+        .ver-mas-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Strip -->
+    <div class="header-strip">
+        <div class="header-top">
+            <div class="search-bar">
+                <input type="text" placeholder="¿Qué estás buscando?">
+            </div>
+            <div class="logo">
+                <img src="logoblanco.png" alt="Tienda Logo">
+            </div>
+            <div class="user-actions">
+                <a href="#" class="wishlist">
+                    <span class="icon">♡</span>
+                </a>
+                <a href="#" class="cart">
+                    <span class="icon">🛒</span>
+                </a>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="social-icons">
+                <a href="#"><img src="facebook.jpg" alt="Facebook"></a>
+                <a href="#"><img src="instagram.jpg" alt="Instagram"></a>
+                <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="marcas.html" class="active">Marcas</a>
+                <a href="puntos de venta.html">Puntos de Venta</a>
+                <a href="nosotros.html">Nosotros</a>
+                <a href="#">Blogs</a>
+            </nav>
+            <div class="phone-number">
+                956 905 759
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Categories Section -->
+        <div class="categories-section">
+            <h2>CATEGORÍAS</h2>
+            <ul>
+                <li><a href="#">Papelería</a></li>
+                <li><a href="#">Dibujo</a></li>
+                <li><a href="#">Acuarela</a></li>
+                <li><a href="#">Escultura</a></li>
+                <li><a href="#">Manualidades</a></li>
+                <li><a href="#">Pintura</a></li>
+            </ul>
+        </div>
+
+        <!-- Products Section -->
+        <div class="products-section">
+            <div class="products-header">
+                <p>Mostrando 1-12 de 24 resultados</p>
+                <select>
+                    <option>Orden predeterminado</option>
+                    <option>Precio: bajo a alto</option>
+                    <option>Precio: alto a bajo</option>
+                    <option>Más reciente</option>
+                </select>
+            </div>
+            <div class="products-grid">
+                <!-- Initial Products (1-12) -->
+                <div class="product-item">
+                    <a href="#">
+                        <img src="Fabriano Acuarela.jpg" alt="Fabriano Acuarela">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="Fabriano Acuarela.jpg">BLOCK FABRIANO 1264 WATERCOLOUR 300GR</a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">25.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="Fabriano dibujo.jpg" alt="Fabriano dibujo">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product2.html">BLOCK FABRIANO 1264 DRAWING 180GR</a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">24.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="fabriano skizi.jpg" alt="fabriano skizi">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">BLOCK FABRIANO 1264 SCHIZZI 90GR A5</a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">18.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="Fabriano Desing Nero.jpg" alt="Fabriano Desing Nero">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">BLOCK FABRIANO 1264 DESING NERO 200GR A5</a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">26.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="Fabriano Marker.jpg" alt="Fabriano Marker">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">BLOCK FABRIANO 1264 MARKER A4 70GR </a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">42.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="Fabriano mix media.jpg" alt="Fabriano mix media">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">BLOCK FABRIANO 1264 MIX-MEDIA 300GR </a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">19.80</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="Fabriano watercolourrr.jpg" alt="Fabriano watercolourrr">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">BLOCK FABRIANO WATERCOLOUR GRANO FINO 300GR </a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">13.80</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="Artistico watercolour grano satinado.jpg" alt="Artistico watercolour grano satinado">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">ARTISTICO WATERCOLOUR GRANO SATINADO 23X30,5CM 300GR </a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">146.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="Artistico watercolour grano fino.jpg" alt="Artistico watercolour grano fino">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">ARTISTICO WATERCOLOUR GRANO FINO 23 X 30,5 CM 300GR </a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">148.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="Artistico watercolour grano grueso.jpg" alt="Artistico watercolour grano grueso">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">ARTISTICO WATERCOLOUR GRANO GRUESO 23 X 30,5 CM 300GR </a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">146.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="fabriano-watercolor-encolado-a4-25-algodon-666507_1200x.jpg" alt="Fabriano%25Algodon">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">FABRIANO WATERCOLOUR GRANO FINO 26 X 36 CM 300GR </a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">45.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <a href="#">
+                        <img src="Fabriano mix media rojo.jpg" alt="Fabriano mix media rojo">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">FABRIANO ENCOLADO MIX MEDIA 250GR </a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">29.90</span></div>
+                    </div>
+                </div>
+                <!-- Additional Products (13-24, initially hidden) -->
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Fabriano Accademia.jpg" alt="Fabriano Accademia">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="Fabriano Acuarela.jpg">FABRIANO ACCADEMIA DRAWING 200GR</a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">21.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Fabriano bristol.jpg" alt="Fabriano bristol">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product2.html">FABRIANO BRISTOL ENCOLADO 250GR</a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">17.80</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Fabriano black black.jpg" alt="Fabriano black black">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">FABRIANO BLACK BLACK 300GR 20X20CM</a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">28.50</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Tiziano grises.jpg" alt="Fabriano Tiziano grises">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">TIZIANO TONOS GRISES 160GR 24X32CM</a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">26.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Tiziano tonos neutros.jpg" alt="Tiziano tonos neutros">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">TIZIANO TONOS NEUTROS 160GR 24X32CM</a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">42.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Fabriano acrilico.jpg" alt="Fabriano acrilico">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">FABRIANO ACRILICO GRANO FINO 400GR </a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">68.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Block fabriano schizi.jpg" alt="Block fabriano schizi">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">BLOCK FABRIANO SCHIZZI ENCOLADO 90GR </a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">15.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Fabriano schizzi anillado.jpg" alt="Fabriano schizzi anillado">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">BLOCK FABRIANO SCHIZZI ANILLADO 90GR </a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">15.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Fabriano unica.jpg" alt="Fabriano unica">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">FABRIANO UNICA 29.7 X 42 CM 250GR </a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">68.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Fabriano 160gr.jpg" alt="Fabriano 160gr">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">FABRIANO MODO PAISAJE 160GR </a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">40.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="fabriano-watercolor-encolado-a4-25-algodon-666507_1200x.jpg" alt="Fabriano%25Algodon">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">FABRIANO WATERCOLOUR GRANO FINO 26 X 36 CM 300GR </a></h3>
+                        <div class="price"><span class="price-desde">S/</span><span class="price-value">45.00</span></div>
+                    </div>
+                </div>
+                <div class="product-item hidden">
+                    <a href="#">
+                        <img src="Fabriano mix media rojo.jpg" alt="Fabriano mix media rojo">
+                    </a>
+                    <div class="product-details">
+                        <div class="options-bar">
+                            <a href="#" title="Vista Previa"><span class="icon">👁️</span><span class="tooltip">Vista Previa</span></a>
+                            <a href="#" title="Que le gusta el producto"><span class="icon">❤️</span><span class="tooltip">Me gusta</span></a>
+                            <a href="#" title="Agregar al carrito"><span class="icon">🛒</span><span class="tooltip">Agregar al carrito</span></a>
+                            <a href="#" title="Comparar"><span class="icon">⚖️</span><span class="tooltip">Comparar</span></a>
+                        </div>
+                        <h3><a href="product3.html">FABRIANO ENCOLADO MIX MEDIA 250GR </a></h3>
+                        <div class="price"><span class="price-desde">Desde S/</span><span class="price-value">29.90</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ver-mas-container">
+                <button class="ver-mas-button" onclick="showMoreProducts()">Ver Más</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showMoreProducts() {
+            const hiddenProducts = document.querySelectorAll('.product-item.hidden');
+            const verMasButton = document.querySelector('.ver-mas-button');
+            const productsHeader = document.querySelector('.products-header p');
+
+            hiddenProducts.forEach(product => {
+                product.classList.remove('hidden');
+            });
+            verMasButton.style.display = 'none';
+            productsHeader.textContent = 'Mostrando 1-24 de 24 resultados';
+        }
+    </script>
+</body>
+</html>

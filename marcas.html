@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Tienda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Header Strip */
+        .header-strip {
+            background-color: #333;
+            padding: 15px 50px;
+            position: relative;
+            color: #fff;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 250px;
+        }
+
+        .search-bar input {
+            padding: 10px 10px 10px 35px;
+            border: none;
+            border-bottom: 1px solid #fff;
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            background: transparent;
+            color: #fff;
+        }
+
+        .search-bar input::placeholder {
+            color: #ccc;
+        }
+
+        .search-bar::before {
+            content: "🔍";
+            position: absolute;
+            left: 10px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .logo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            max-height: 100px;
+            max-width: 350px;
+            object-fit: contain;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            width: 250px;
+            justify-content: flex-end;
+        }
+
+        .user-actions a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-actions a:hover {
+            color: #f5a623;
+        }
+
+        .user-actions .icon {
+            font-size: 24px;
+        }
+
+        .header-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            width: 250px;
+        }
+
+        .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1);
+        }
+
+        .social-icons img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex: 1;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #f5a623;
+        }
+
+        .phone-number {
+            font-size: 14px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: 250px;
+            justify-content: flex-end;
+        }
+
+        .phone-number::before {
+            content: "📞";
+            font-size: 16px;
+        }
+
+        /* Marcas Section */
+        .marcas-section {
+            padding: 40px 50px;
+            background-color: #fff;
+        }
+
+        .marcas-section h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .marcas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .marca-item {
+            background-color: #e5e5e5;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .marca-item:hover {
+            transform: scale(1.05);
+        }
+
+        .marca-item a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        .marca-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Strip -->
+    <div class="header-strip">
+        <div class="header-top">
+            <div class="search-bar">
+                <input type="text" placeholder="¿Qué estás buscando?">
+            </div>
+            <div class="logo">
+                <img src="logoblanco.png" alt="Tienda Logo">
+            </div>
+            <div class="user-actions">
+                <a href="#" class="wishlist">
+                    <span class="icon">♡</span>
+                </a>
+                <a href="#" class="cart">
+                    <span class="icon">🛒</span>
+                </a>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="social-icons">
+                <a href="#"><img src="facebook.jpg" alt="Facebook"></a>
+                <a href="#"><img src="instagram.jpg" alt="Instagram"></a>
+                <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="marcas.html">Marcas</a>
+                <a href="puntos de venta.html">Puntos de Venta</a>
+                <a href="nosotros.html">Nosotros</a>
+                <a href="#">Blogs</a>
+            </nav>
+            <div class="phone-number">
+                956 905 759
+            </div>
+        </div>
+    </div>
+
+    <!-- Marcas Section -->
+    <div class="marcas-section">
+        <h2>MARCAS</h2>
+        <div class="marcas-grid">
+            <!-- 50 Placeholder Items for Brand Logos -->
+            <div class="marca-item"><a href="#"><img src="Fabriano.png" alt="Marca 1"></a></div>
+            <div class="marca-item"><a href="#"><img src="Faber Castell.png" alt="Marca 2"></a></div>
+            <div class="marca-item"><a href="#"><img src="Prismacolor Premier.png" alt="Marca 3"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 4"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 5"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 6"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 7"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 8"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 9"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 10"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 11"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 12"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 13"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 14"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 15"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 16"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 17"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 18"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 19"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 20"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 21"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 22"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 23"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 24"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 25"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 26"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 27"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 28"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 29"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 30"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 31"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 32"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 33"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 34"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 35"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 36"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 37"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 38"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 39"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 40"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 41"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 42"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 43"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 44"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 45"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 46"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 47"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 48"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 49"></a></div>
+            <div class="marca-item"><a href="#"><img src="placeholder.jpg" alt="Marca 50"></a></div>
+        </div>
+    </div>
+
+    <script>
+        // Array of brands with their names, image sources, and URLs
+        const brands = [
+            { name: "Fabriano", imgSrc: "Fabriano.png", url: "fabriano.html" },
+            { name: "Faber Castell", imgSrc: "Faber Castell.png", url: "faber-castell.html" },
+            { name: "Prismacolor Premier", imgSrc: "Prismacolor Premier.png", url: "prismacolor-premier.html" },
+            { name: "Marca 4", imgSrc: "placeholder.jpg", url: "marca4.html" },
+            { name: "Marca 5", imgSrc: "placeholder.jpg", url: "marca5.html" },
+            { name: "Marca 6", imgSrc: "placeholder.jpg", url: "marca6.html" },
+            { name: "Marca 7", imgSrc: "placeholder.jpg", url: "marca7.html" },
+            { name: "Marca 8", imgSrc: "placeholder.jpg", url: "marca8.html" },
+            { name: "Marca 9", imgSrc: "placeholder.jpg", url: "marca9.html" },
+            { name: "Marca 10", imgSrc: "placeholder.jpg", url: "marca10.html" },
+            { name: "Marca 11", imgSrc: "placeholder.jpg", url: "marca11.html" },
+            { name: "Marca 12", imgSrc: "placeholder.jpg", url: "marca12.html" },
+            { name: "Marca 13", imgSrc: "placeholder.jpg", url: "marca13.html" },
+            { name: "Marca 14", imgSrc: "placeholder.jpg", url: "marca14.html" },
+            { name: "Marca 15", imgSrc: "placeholder.jpg", url: "marca15.html" },
+            { name: "Marca 16", imgSrc: "placeholder.jpg", url: "marca16.html" },
+            { name: "Marca 17", imgSrc: "placeholder.jpg", url: "marca17.html" },
+            { name: "Marca 18", imgSrc: "placeholder.jpg", url: "marca18.html" },
+            { name: "Marca 19", imgSrc: "placeholder.jpg", url: "marca19.html" },
+            { name: "Marca 20", imgSrc: "placeholder.jpg", url: "marca20.html" },
+            { name: "Marca 21", imgSrc: "placeholder.jpg", url: "marca21.html" },
+            { name: "Marca 22", imgSrc: "placeholder.jpg", url: "marca22.html" },
+            { name: "Marca 23", imgSrc: "placeholder.jpg", url: "marca23.html" },
+            { name: "Marca 24", imgSrc: "placeholder.jpg", url: "marca24.html" },
+            { name: "Marca 25", imgSrc: "placeholder.jpg", url: "marca25.html" },
+            { name: "Marca 26", imgSrc: "placeholder.jpg", url: "marca26.html" },
+            { name: "Marca 27", imgSrc: "placeholder.jpg", url: "marca27.html" },
+            { name: "Marca 28", imgSrc: "placeholder.jpg", url: "marca28.html" },
+            { name: "Marca 29", imgSrc: "placeholder.jpg", url: "marca29.html" },
+            { name: "Marca 30", imgSrc: "placeholder.jpg", url: "marca30.html" },
+            { name: "Marca 31", imgSrc: "placeholder.jpg", url: "marca31.html" },
+            { name: "Marca 32", imgSrc: "placeholder.jpg", url: "marca32.html" },
+            { name: "Marca 33", imgSrc: "placeholder.jpg", url: "marca33.html" },
+            { name: "Marca 34", imgSrc: "placeholder.jpg", url: "marca34.html" },
+            { name: "Marca 35", imgSrc: "placeholder.jpg", url: "marca35.html" },
+            { name: "Marca 36", imgSrc: "placeholder.jpg", url: "marca36.html" },
+            { name: "Marca 37", imgSrc: "placeholder.jpg", url: "marca37.html" },
+            { name: "Marca 38", imgSrc: "placeholder.jpg", url: "marca38.html" },
+            { name: "Marca 39", imgSrc: "placeholder.jpg", url: "marca39.html" },
+            { name: "Marca 40", imgSrc: "placeholder.jpg", url: "marca40.html" },
+            { name: "Marca 41", imgSrc: "placeholder.jpg", url: "marca41.html" },
+            { name: "Marca 42", imgSrc: "placeholder.jpg", url: "marca42.html" },
+            { name: "Marca 43", imgSrc: "placeholder.jpg", url: "marca43.html" },
+            { name: "Marca 44", imgSrc: "placeholder.jpg", url: "marca44.html" },
+            { name: "Marca 45", imgSrc: "placeholder.jpg", url: "marca45.html" },
+            { name: "Marca 46", imgSrc: "placeholder.jpg", url: "marca46.html" },
+            { name: "Marca 47", imgSrc: "placeholder.jpg", url: "marca47.html" },
+            { name: "Marca 48", imgSrc: "placeholder.jpg", url: "marca48.html" },
+            { name: "Marca 49", imgSrc: "placeholder.jpg", url: "marca49.html" },
+            { name: "Marca 50", imgSrc: "placeholder.jpg", url: "marca50.html" }
+        ];
+
+        // Dynamically set the href, src, and alt attributes for each brand
+        document.addEventListener('DOMContentLoaded', () => {
+            const marcaItems = document.querySelectorAll('.marca-item');
+            marcaItems.forEach((item, index) => {
+                const link = item.querySelector('a');
+                const img = item.querySelector('img');
+                if (brands[index]) {
+                    link.href = brands[index].url;
+                    img.src = brands[index].imgSrc;
+                    img.alt = brands[index].name;
+                }
+            });
+        });
+    </script>
+
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9350350e1cc844d7',t:'MTc0NTQ0MTE1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93589711a85ac010',t:'MTc0NTUyOTA1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

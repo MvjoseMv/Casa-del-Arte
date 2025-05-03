@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros - Tienda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Header Strip */
+        .header-strip {
+            background-color: #333;
+            padding: 15px 50px;
+            position: relative;
+            color: #fff;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 250px;
+        }
+
+        .search-bar input {
+            padding: 10px 10px 10px 35px;
+            border: none;
+            border-bottom: 1px solid #fff;
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            background: transparent;
+            color: #fff;
+        }
+
+        .search-bar input::placeholder {
+            color: #ccc;
+        }
+
+        .search-bar::before {
+            content: "🔍";
+            position: absolute;
+            left: 10px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .logo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            max-height: 100px;
+            max-width: 350px;
+            object-fit: contain;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            width: 250px;
+            justify-content: flex-end;
+        }
+
+        .user-actions a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-actions a:hover {
+            color: #f5a623;
+        }
+
+        .user-actions .icon {
+            font-size: 24px;
+        }
+
+        .header-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            width: 250px;
+        }
+
+        .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1);
+        }
+
+        .social-icons img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex: 1;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #f5a623;
+        }
+
+        .phone-number {
+            font-size: 14px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: 250px;
+            justify-content: flex-end;
+        }
+
+        .phone-number::before {
+            content: "📞";
+            font-size: 16px;
+        }
+
+        /* Nosotros Section */
+        .nosotros-section {
+            padding: 60px 70px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nosotros-section h2 {
+            font-size: 30px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .nosotros-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            gap: 40px;
+        }
+
+        .video-container {
+            flex: 1;
+            position: relative;
+            max-width: 320px;
+            background-color: #000;
+            border-radius: 50px;
+            border: 6px solid transparent;
+            background-image: linear-gradient(45deg, #1a1a1a, #333);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), inset 0 0 5px rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+        }
+
+        /* iPhone Notch */
+        .video-container::before {
+            content: "";
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 18px;
+            background-color: #000;
+            border-radius: 10px;
+            z-index: 2;
+            box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+
+        /* iPhone Side Buttons */
+        .video-container::after {
+            content: "";
+            position: absolute;
+            top: 90px;
+            right: -6px;
+            width: 3px;
+            height: 50px;
+            background-color: #1a1a1a;
+            border-radius: 2px 0 0 2px;
+        }
+
+        .video-container .volume-buttons {
+            position: absolute;
+            top: 90px;
+            left: -6px;
+            width: 3px;
+            height: 90px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .video-container .volume-buttons::before,
+        .video-container .volume-buttons::after {
+            content: "";
+            width: 3px;
+            height: 35px;
+            background-color: #1a1a1a;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            border-radius: 40px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .nosotros-text {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .nosotros-text p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Strip -->
+    <div class="header-strip">
+        <div class="header-top">
+            <div class="search-bar">
+                <input type="text" placeholder="¿Qué estás buscando?">
+            </div>
+            <div class="logo">
+                <img src="logoblanco.png" alt="Tienda Logo">
+            </div>
+            <div class="user-actions">
+                <a href="#" class="wishlist">
+                    <span class="icon">♡</span>
+                </a>
+                <a href="#" class="cart">
+                    <span class="icon">🛒</span>
+                </a>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="social-icons">
+                <a href="#"><img src="facebook.jpg" alt="Facebook"></a>
+                <a href="#"><img src="instagram.jpg" alt="Instagram"></a>
+                <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="marcas.html">Marcas</a>
+                <a href="puntos de venta.html">Puntos de Venta</a>
+                <a href="nosotros.html">Nosotros</a>
+                <a href="#">Blogs</a>
+            </nav>
+            <div class="phone-number">
+                956 905 759
+            </div>
+        </div>
+    </div>
+
+    <!-- Nosotros Section -->
+    <div class="nosotros-section">
+        <h2>LA CASA DEL ARTE</h2>
+        <div class="nosotros-content">
+            <div class="video-container">
+                <div class="volume-buttons"></div>
+                <video autoplay muted loop controls>
+                    <source src="La Casa del Arte Video.mp4" type="video/mp4">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+            </div>
+            <div class="nosotros-text">
+                <p>En La Casa del Arte creemos que la creatividad no solo se enseña, se vive. Es un proceso constante de exploración, prueba, error y expresión personal. Por eso, más que una tienda, somos un espacio que busca inspirar a estudiantes, profesionales y amantes del arte, la arquitectura y el diseño a descubrir su propio estilo, a conectar con su lado creativo y a disfrutar de cada trazo, línea o idea.</p>
+                <p>Cada producto que ofrecemos tiene un propósito: acompañarte en tu proceso creativo, motivarte a explorar nuevas técnicas, darte la libertad de equivocarte sin miedo y ayudarte a encontrar tu voz propia a través del arte y el diseño. Sabemos que una buena herramienta puede marcar la diferencia, por eso trabajamos con proveedores de confianza y buscamos constantemente innovar, crear y mejorar.</p>
+                <p>La Casa del Arte es también una comunidad. Nos encanta compartir el trabajo de artistas emergentes, colaborar con creadores locales y ser parte de una red que valora el talento, el esfuerzo y la expresión individual. Queremos ser un puente entre la inspiración y la acción, entre la idea y el resultado final.</p>
+                <p>Te damos la bienvenida a este espacio donde el arte no tiene límites. Esperamos que nuestros productos no solo te sean útiles, sino que se conviertan en parte de tu historia creativa.</p>
+                <p>Gracias por formar parte de nuestra casa.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

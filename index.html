@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 8px 8px 8px 30px;
+            border: none;
+            border-bottom: 1px solid #333;
+            outline: none;
+            font-size: 14px;
+            width: 200px;
+        }
+
+        .search-bar::before {
+            content: "🔍";
+            position: absolute;
+            left: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .logo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .logo img {
+            height: 150px;
+            max-width: 400px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-actions a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-actions a:hover {
+            color: #007bff;
+        }
+
+        .user-actions .icon {
+            font-size: 20px;
+        }
+
+        .user-actions .login-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .user-actions .login-text span:first-child {
+            color: #f5a623;
+            font-size: 14px;
+        }
+
+        .user-actions .login-text span:last-child {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .phone-number {
+            position: absolute;
+            bottom: 5px;
+            right: 50px;
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .phone-number::before {
+            content: "📞";
+            font-size: 16px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px 0;
+            background-color: #fff;
+            margin-top: 5px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #007bff;
+        }
+
+        .corporate-sales {
+            position: absolute;
+            top: 20px;
+            right: 50px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .corporate-sales:hover {
+            background-color: #555;
+        }
+
+        .banner-carousel {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .banner-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            animation: slide 12s infinite ease-in-out;
+        }
+
+        .banner {
+            width: 33.333%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(0); }
+            33.33% { transform: translateX(-33.333%); }
+            58.33% { transform: translateX(-33.333%); }
+            66.66% { transform: translateX(-66.666%); }
+            91.66% { transform: translateX(-66.666%); }
+            100% { transform: translateX(0); }
+        }
+
+        .banner-text {
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: bold;
+            padding: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner button {
+            padding: 12px 24px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .banner button:hover {
+            background-color: #555;
+        }
+
+        .social-icons {
+            position: absolute;
+            bottom: 5px;
+            left: 50px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .social-icons img {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons img:hover {
+            transform: scale(1.1);
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-controls button {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-controls button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .categories-section {
+            padding: 40px 50px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .categories-section h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .categories-carousel {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .categories-track {
+            display: flex;
+            animation: scroll 20s linear infinite;
+        }
+
+        .category-item {
+            flex: 0 0 25%;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .category-item:hover {
+            transform: scale(1.05);
+        }
+
+        .category-item a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .category-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .category-item h3 {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            text-transform: uppercase;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .products-section {
+            padding: 40px 50px;
+            background-color: transparent;
+            text-align: center;
+        }
+
+        .products-section h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .products-grid {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        .product-item {
+            flex: 0 0 23%;
+            position: relative;
+            text-align: left;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-item a img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item a img:hover {
+            transform: scale(1.05);
+        }
+
+        .sale-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #fff;
+            color: #333;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 50%;
+            border: 1px solid #333;
+        }
+
+        .product-details {
+            padding: 15px;
+        }
+
+        .product-details h3 {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .product-details .price {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .price .original {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 5px;
+        }
+
+        .price .discounted {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .product-details button {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-details button:hover {
+            background-color: #555;
+        }
+
+        .benefits-section {
+            padding: 40px 50px;
+            background-color: #e5e5e5;
+            text-align: center;
+        }
+
+        .benefits-section h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .benefits-grid {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .benefit-item {
+            flex: 0 0 23%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .benefit-item img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
+        .benefit-item h3 {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .benefit-item p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 50px;
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: #f5a623;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .payment-methods a img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .payment-methods a img:hover {
+            transform: scale(1.1);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-links a img {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a img:hover {
+            transform: scale(1.1);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="search-bar">
+            <input type="text" placeholder="¿Qué estás buscando?">
+        </div>
+        <div class="logo">
+            <img src="logo.png" alt="Tienda Logo">
+        </div>
+        <div class="user-actions">
+            <a href="#" class="wishlist">
+                <span class="icon">♡</span>
+            </a>
+            <a href="#" class="cart">
+                <span class="icon">🛒</span>
+            </a>
+            <a href="#" class="login">
+                <span class="icon">👤</span>
+                <span class="login-text">
+                    <span>Hola</span>
+                    <span>Iniciar sesión</span>
+                </span>
+            </a>
+        </div>
+        <div class="phone-number">
+            956 905 759
+        </div>
+        <div class="social-icons">
+            <a href="#"><img src="facebook.jpg" alt="Facebook"></a>
+            <a href="#"><img src="instagram.jpg" alt="Instagram"></a>
+            <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <a href="#">Home</a>
+        <a href="marcas.html">Marcas</a>
+        <a href="puntos de venta.html">Puntos de Venta</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="#">Blogs</a>
+    </nav>
+
+    <a href="#" class="corporate-sales">Ventas Corporativas</a>
+
+    <div class="banner-carousel">
+        <div class="banner-track">
+            <div class="banner" style="background-image: url('Faber Castell.png');">
+                <a href="Faber Castell.png"><button>Ver más</button></a>
+            </div>
+            <div class="banner" style="background-image: url('Fabriano.png');">
+                <a href="banner2.png"><button>Ver más</button></a>
+            </div>
+            <div class="banner" style="background-image: url('Prismacolor Premier.png');">
+                <a href="banner3.png"><button>Ver más</button></a>
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <button onclick="prevSlide()">&lt;</button>
+            <button onclick="nextSlide()">&gt;</button>
+        </div>
+    </div>
+
+    <section class="categories-section">
+        <h2>Ingresa a tu categoría favorita</h2>
+        <div class="categories-carousel">
+            <div class="categories-track">
+                <div class="category-item">
+                    <a href="/diseno-arquitectura">
+                        <img src="diseño y arquitectura.png" alt="Diseño y Arquitectura">
+                        <h3>Diseño y Arquitectura</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/papeleria-block">
+                        <img src="papeles y block.png" alt="Papelería y Block">
+                        <h3>Papelería y Block</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/grabado">
+                        <img src="grabado.png" alt="Grabado">
+                        <h3>Grabado</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/conservacion-restauracion">
+                        <img src="restauracion.png" alt="Conservación y Restauración">
+                        <h3>Conservación y Restauración</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/dibujo">
+                        <img src="dibujo.png" alt="Dibujo">
+                        <h3>Dibujo</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/escultura">
+                        <img src="escultura.png" alt="Escultura">
+                        <h3>Escultura</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/manualidades">
+                        <img src="manualidades.png" alt="Manualidades">
+                        <h3>Manualidades</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/pintura">
+                        <img src="pintura.png" alt="Pintura">
+                        <h3>Pintura</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/diseno-arquitectura">
+                        <img src="https://via.placeholder.com/300x300" alt="Diseño y Arquitectura">
+                        <h3>Diseño y Arquitectura</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/papeleria-block">
+                        <img src="https://via.placeholder.com/300x300" alt="Papelería y Block">
+                        <h3>Papelería y Block</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/grabado">
+                        <img src="https://via.placeholder.com/300x300" alt="Grabado">
+                        <h3>Grabado</h3>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="/conservacion-restauracion">
+                        <img src="https://via.placeholder.com/300x300" alt="Conservación y Restauración">
+                        <h3>Conservación y Restauración</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <h2>Los más pedidos</h2>
+        <div class="products-grid">
+            <div class="product-item">
+                <a href="/buy/polychromo-x12">
+                    <img src="polychromo x12.jpg" alt="Polychromo set x12">
+                </a>
+                <div class="sale-badge">SALE</div>
+                <div class="product-details">
+                    <h3>Polychromo set x12 </h3>
+                    <div class="price">
+                        <span class="original">S/120.00</span>
+                        <span class="discounted">S/104.00</span>
+                    </div>
+                    <button>Agregar a mi bolsa</button>
+                </div>
+            </div>
+            <div class="product-item">
+                <a href="/buy/prisma-color-premier-x24">
+                    <img src="Prisma color premier x24.jpg" alt="Prisma color premier x24">
+                </a>
+                <div class="sale-badge">SALE</div>
+                <div class="product-details">
+                    <h3>Prisma color premier x24</h3>
+                    <div class="price">
+                        <span class="original">S/</span>
+                        <span class="discounted">S/135.00</span>
+                    </div>
+                    <button>Agregar a mi bolsa</button>
+                </div>
+            </div>
+            <div class="product-item">
+                <a href="/buy/cotman-watercolour-x13">
+                    <img src="cotman watercolour.jpg" alt="cotman watercolour">
+                </a>
+                <div class="sale-badge">SALE</div>
+                <div class="product-details">
+                    <h3>Cotman watercolour x13</h3>
+                    <div class="price">
+                        <span class="original">S/</span>
+                        <span class="discounted">S/130.00</span>
+                    </div>
+                    <button>Agregar a mi bolsa</button>
+                </div>
+            </div>
+            <div class="product-item">
+                <a href="/buy/fabriano-1264-dibujo-a3">
+                    <img src="fabriano 1264 dibujo.jpg" alt="fabriano 1264 dibujo">
+                </a>
+                <div class="sale-badge">SALE</div>
+                <div class="product-details">
+                    <h3>fabriano-1264-dibujo-180GR A3</h3>
+                    <div class="price">
+                        <span class="original">S/</span>
+                        <span class="discounted">S/73.00</span>
+                    </div>
+                    <button>Agregar a mi bolsa</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits-section">
+        <h2>Descubre más para ti</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <img src="https://img.icons8.com/?size=100&id=119228&format=png" alt="Tarjeta Ripley">
+                <h3>Aceptamos Tarjeta debito/credito</h3>
+                <p>Y aprovecha increíbles descuentos en la Casa del Arte</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://img.icons8.com/?size=100&id=11680&format=png" alt="Ripley Puntos GO">
+                <h3>Aceptamos cambios</h3>
+                <p>Por el tiempo de 48 horas y buen estado del producto</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://img.icons8.com/?size=100&id=85069&format=png" alt="Efectivo Express">
+                <h3>Pide online tus productos</h3>
+                <p>Con abono previo </p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://img.icons8.com/?size=100&id=10782&format=png" alt="Promociones Banco Ripley">
+                <h3>Promociones constantes </h3>
+                <p>Los mejores precios y beneficios</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://img.icons8.com/?size=100&id=10826&format=png" alt="Servicio al cliente">
+                <h3>Servicio al cliente</h3>
+                <p>+51 956 905 759</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://img.icons8.com/?size=100&id=9640&format=png" alt="Seguimiento de Compra">
+                <h3>Delivery</h3>
+                <p>Costo sujeto a cobertura</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://img.icons8.com/?size=100&id=12624&format=png" alt="Retiro en tienda">
+                <h3>Retiro en tienda</h3>
+                <p>Compra online and recibe en tienda</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://img.icons8.com/?size=100&id=10454&format=png" alt="Soluciones Empresas">
+                <h3>Catalogo de los productos</h3>
+                <p>Ofrecemos variedad en el catalogo</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>Compra con Confianza</h3>
+                <ul>
+                    <li><a href="#">¿Cómo comprar en La Casa del Arte.com?</a></li>
+                    <li><a href="#">Gulas de Compra</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Cambios y Devoluciones</a></li>
+                    <li><a href="#">Ganadores de Concursos</a></li>
+                    <li><a href="#">Bases Legales</a></li>
+                    <li><a href="#">Seguridad de Privacidad</a></li>
+                    <li><a href="#">Seguimiento de despacho</a></li>
+                    <li><a href="#">Política privacidad de datos</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Sobre Nosotros</h3>
+                <ul>
+                    <li><a href="#">Portal de Personas</a></li>
+                    <li><a href="#">¿Quiénes Somos?</a></li>
+                    <li><a href="#">Nuestras Tiendas</a></li>
+                    <li><a href="#">Nuestra Tensión</a></li>
+                    <li><a href="#">Trabaja con nosotros</a></li>
+                    <li><a href="#">Comprobante Electrónico</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Más de La Casa del Arte</h3>
+                <ul>
+                    <li><a href="#">Talleres</a></li>
+                    <li><a href="#">Capacitaciones</a></li>
+                    <li><a href="#">Efectivo Express</a></li>
+                    <li><a href="#">Extra Garantía</a></li>
+                    <li><a href="#">Día del Niño</a></li>
+                    <li><a href="#">Cyber Wow</a></li>
+                    <li><a href="#">Cyber Day Peru</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Medios de pago</h3>
+                <div class="payment-methods">
+                    <a href="#"><img src="https://img.icons8.com/color/48/visa.png" alt="Visa"></a>
+                    <a href="#"><img src="https://img.icons8.com/color/48/mastercard.png" alt="Mastercard"></a>
+                    <a href="#"><img src="https://img.icons8.com/color/48/banknotes.png" alt="Yape"></a>
+                    <a href="#"><img src="https://img.icons8.com/color/48/coins.png" alt="Plin"></a>
+                    <a href="#"><img src="https://img.icons8.com/color/48/cash-in-hand.png" alt="Efectivo"></a>
+                </div>
+                <h3>Síguenos</h3>
+                <div class="social-links">
+                    <a href="#"><img src="https://img.icons8.com/color/48/tiktok.png" alt="TikTok"></a>
+                    <a href="#"><img src="https://img.icons8.com/color/48/facebook-new.png" alt="Facebook"></a>
+                    <a href="#"><img src="https://img.icons8.com/color/48/instagram-new.png" alt="Instagram"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">
+            Por tu seguridad, recuerda revisar siempre en tu navegador que el sitio que visitas sea la versión oficial. La dirección https://simple.ripley.com.pe es la única del sitio oficial de Ripley.
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function showSlide(index) {
+            const bannerTrack = document.querySelector('.banner-track');
+            bannerTrack.style.transform = `translateX(-${index * 33.333}%)`;
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Auto slide every 4 seconds (already handled by CSS, but this ensures manual controls don't interfere)
+        document.querySelector('.banner-track').addEventListener('animationiteration', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+        });
+    </script>
+
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'934f068f9be860c7',t:'MTc0NTQyODc2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'934f6214afe6bcda',t:'MTc0NTQzMjUxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9357e53afea2b087',t:'MTc0NTUyMTc3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>
